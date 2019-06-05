@@ -22,12 +22,12 @@ public class HoleCards {
 	}
 	
 	public String toString() {
-		String handString = "";
+		String returnString = "";
 		
 		for (Card cardToPrint : holeCards) {
-			handString += cardToPrint.toString() + "\n";
+			returnString += cardToPrint.toString() + "\n";
 		}
 		
-		return handString;
+		return returnString;
 	}
 }
