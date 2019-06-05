@@ -4,7 +4,7 @@ public class BigO {
 	
 	public static void main(String[] args) {
 		Deck testDeck = new Deck();
-		HoleCards myTestHand = new HoleCards(5);
+		HoleCards myTestHand = new HoleCards(testDeck, 5);
 		System.out.println(testDeck);
 		System.out.println();
 		System.out.println(myTestHand);
