@@ -4,7 +4,7 @@ public class HoleCards {
 	ArrayList<Card> holeCards = new ArrayList<Card>();
 
 	public HoleCards(int handSize) {
-		this(new Deck(), handSize);	
+		this(new Deck(), handSize);
 	}
 
 	public HoleCards(Deck deck, int handSize) {
@@ -20,16 +20,20 @@ public class HoleCards {
 		holeCards.add(new Card(Rank.of(6), Suit.HEARTS));
 		holeCards.add(new Card(Rank.of(6), Suit.SPADES));
 		holeCards.add(new Card(Rank.of(3), Suit.CLUBS));
-		
+
+	}
+
+	public void add(Card card) {
+		this.holeCards.add(card);
 	}
 
 	public String toString() {
-		String handString = "";
+		String returnString = super.toString() + "\n";
 
 		for (Card cardToPrint : holeCards) {
-			handString += cardToPrint.toString() + "\n";
+			returnString += cardToPrint.toString() + "\n";
 		}
 
-		return handString;
+		return returnString;
 	}
 }

@@ -36,11 +36,11 @@ public class Deck {
 	}
 	
 	public String toString() {
-		String deckString = "";
+		String returnString = super.toString() + "\n";
 		for (Card cardToPrint : deck) {
-			deckString += cardToPrint.toString() + "\n";
+			returnString += cardToPrint.toString() + "\n";
 		}
 		
-		return deckString;
+		return returnString;
 	}
 }
