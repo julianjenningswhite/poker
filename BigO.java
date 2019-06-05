@@ -3,6 +3,7 @@ import java.util.Collections;
 public class BigO {
 	public int isPair(Hand myHand) {
 		hi there!!!
+		Too tired to code
 		int pairCounter = 0;
 		int pairRank = 0;
 		int secondPairRank = 0;
