@@ -22,10 +22,13 @@ public class Deck {
 	    return cardToReturn;
 	}
 	
-	public void toPrint() {
+	public String toString() {
+		String deckString = "";
 		for (Card cardToPrint : deck) {
-			System.out.println(cardToPrint.toString());
+			deckString += cardToPrint.toString() + "\n";
 		}
+		
+		return deckString;
 	}
 }
 

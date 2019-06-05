@@ -5,11 +5,11 @@ public class BigO {
 	public static void main(String[] args) {
 		Deck testDeck = new Deck();
 		Hand myTestHand = new Hand(5);
-		testDeck.toPrint();
+		System.out.println(testDeck);
 		System.out.println();
 		myTestHand.toPrint();
-//		Hand myFakeTestHand = new Hand(2, false);
-//		myFakeTestHand.toPrint();
+		Hand myFakeTestHand = new Hand(2, false);
+		myFakeTestHand.toPrint();
 	}
 }
 
