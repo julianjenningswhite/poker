@@ -1,4 +1,4 @@
- import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Hand {
 	ArrayList<Card> hand = new ArrayList<Card>();
@@ -14,9 +14,13 @@ public class Hand {
 			hand.add(cardToAdd);
 		}
 	}
-	public void toPrint() {
+	public String toString() {
+		String handString = "";
+		
 		for (Card cardToPrint : hand) {
-			System.out.println(cardToPrint.toString());
+			handString += cardToPrint.toString() + "\n";
 		}
+		
+		return handString;
 	}
 }

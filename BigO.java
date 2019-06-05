@@ -7,9 +7,9 @@ public class BigO {
 		Hand myTestHand = new Hand(5);
 		System.out.println(testDeck);
 		System.out.println();
-		myTestHand.toPrint();
+		System.out.println(myTestHand);
 		Hand myFakeTestHand = new Hand(2, false);
-		myFakeTestHand.toPrint();
+		System.out.println(myFakeTestHand);
 	}
 }
 

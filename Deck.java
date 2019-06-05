@@ -31,15 +31,3 @@ public class Deck {
 		return deckString;
 	}
 }
-
-
-/*
-while (deck.size() < 52) {
-Card cardToAssign = Card.random();
-if (Collections.frequency(rankArray, cardToAssign.rank) == 0 || Collections.frequency(suitArray, cardToAssign.suit) == 0) {
-	deck.add(cardToAssign);
-	rankArray.add(cardToAssign.rank);
-	suitArray.add(cardToAssign.suit);
-}
-}
-*/
