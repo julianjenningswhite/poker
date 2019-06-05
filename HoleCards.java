@@ -21,8 +21,12 @@ public class HoleCards {
 		}
 	}
 	
+	public void add(Card card) {
+		this.holeCards.add(card);
+	}
+	
 	public String toString() {
-		String returnString = "";
+		String returnString = super.toString() + "\n";
 		
 		for (Card cardToPrint : holeCards) {
 			returnString += cardToPrint.toString() + "\n";

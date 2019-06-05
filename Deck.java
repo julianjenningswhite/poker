@@ -36,7 +36,7 @@ public class Deck {
 	}
 	
 	public String toString() {
-		String returnString = "";
+		String returnString = super.toString() + "\n";
 		for (Card cardToPrint : deck) {
 			returnString += cardToPrint.toString() + "\n";
 		}

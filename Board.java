@@ -1,21 +1,37 @@
+import java.util.ArrayList;
+
 public class Board {
-	final static int boardSize = 5;
-	Card[] board = new Card[boardSize];
+	final static int generalBoardSize = 5;
+	ArrayList<Card> board = new ArrayList<Card>();
 	
 	public Board() {
-		for (int i = 0; i < boardSize; i++) {
-			this.board[i] = Deck.random();
+		Deck deck = new Deck();
+		
+		for (int i = 0; i < generalBoardSize; i++) {
+			this.board.add(deck.takeCard());
+		}
+	}
+	
+	public Board(int size) {
+		Deck deck = new Deck();
+		
+		for (int i = 0; i < size; i++) {
+			this.board.add(deck.takeCard());
 		}
 	}
 	
 	public Board(Deck deck) {
-		for (int i = 0; i < boardSize; i++) {
-			this.board[i] = deck.takeCard();
+		for (int i = 0; i < generalBoardSize; i++) {
+			this.board.add(deck.takeCard());
 		}
 	}
 	
+	public void add(Card card) {
+		this.board.add(card);
+	}
+	
 	public String toString() {
-		String returnString = "";
+		String returnString = super.toString() + "\n";
 		for (Card cardToPrint : board) {
 			returnString += cardToPrint.toString() + "\n";
 		}
