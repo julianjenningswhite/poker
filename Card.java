@@ -1,4 +1,4 @@
-// import java.util.Random;
+import java.util.Random;
 
 public class Card {
 	final Rank rank;
@@ -9,16 +9,14 @@ public class Card {
 	    this.suit = suit;
 	}
 	
+	public static Card random() {
+		Random generator = new Random();
+		Rank rank = Rank.values()[generator.nextInt(Rank.values().length)];
+		Suit suit = Suit.values()[generator.nextInt(Suit.values().length)];
+		return new Card(rank, suit);
+	}
+	
 	public String toString() {
 		return "Rank: " + this.rank.getDisplayName() + " Suit: " + this.suit.getDisplayName();
 	}
 }
-
-/*
-public static Card random() {
-Random generator = new Random();
-Rank rank = Rank.values()[generator.nextInt(Rank.values().length)];
-Suit suit = Suit.values()[generator.nextInt(Suit.values().length)];
-return new Card(rank, suit);
-}
-*/
