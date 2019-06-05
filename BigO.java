@@ -1,15 +1,27 @@
 import java.util.Collections;
+import java.util.Hashtable;
 
 public class BigO {
 	
+	public static void bestCombination(HoleCards myHand) {
+		Hashtable<Rank, Suit> handAndBoard = new Hashtable<Rank, Suit>();
+		for (int i = 0; i < myHand.hand.size(); i++) {
+			System.out.print(myHand.getRanks().get(i));
+			handAndBoard.put(myHand.getRanks().get(i), myHand.getSuits().get(i));
+		}
+		System.out.print(handAndBoard);
+		for (Rank rank : Rank.values()) {
+			if (Collections.frequency(handAndBoard.keySet(), rank) == 4)
+				System.out.print("Quads");
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 		Deck testDeck = new Deck();
-		HoleCards myTestHand = new HoleCards(5);
-		System.out.println(testDeck);
-		System.out.println();
-		System.out.println(myTestHand);
-		HoleCards myFakeTestHand = new HoleCards(2, false);
+		HoleCards myFakeTestHand = new HoleCards(5, false);
 		System.out.println(myFakeTestHand);
+		BigO.bestCombination(myFakeTestHand);
 	}
 }
 

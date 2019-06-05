@@ -11,10 +11,25 @@ public class HoleCards {
 	}
 	
 	public HoleCards(int handSize, boolean isReal) {
-		for (int i = 0; i < handSize; i++) {
-			Card cardToAdd = new Card(Rank.of(3), Suit.CLUBS);
-			hand.add(cardToAdd);
-		}
+		hand.add(new Card(Rank.of(3), Suit.CLUBS));
+		hand.add(new Card(Rank.of(3), Suit.DIAMONDS));
+		hand.add(new Card(Rank.of(3), Suit.HEARTS));
+		hand.add(new Card(Rank.of(3), Suit.SPADES));
+		hand.add(new Card(Rank.of(4), Suit.CLUBS));
+	}
+	
+	public ArrayList<Rank> getRanks() {
+		ArrayList<Rank> rankArray = new ArrayList<Rank>();
+		for (int i = 0; i < hand.size(); i++)
+			rankArray.add(hand.get(i).rank);
+		return rankArray;
+	}
+	
+	public ArrayList<Suit> getSuits() {
+		ArrayList<Suit> suitArray = new ArrayList<Suit>();
+		for (int i = 0; i < hand.size(); i++)
+			suitArray.add(hand.get(i).suit);
+		return suitArray;
 	}
 	
 	public String toString() {
