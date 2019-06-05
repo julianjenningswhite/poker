@@ -14,11 +14,13 @@ public class HoleCards {
 		}
 	}
 
-	public HoleCards(int handSize, boolean isReal) {
-		for (int i = 0; i < handSize; i++) {
-			Card cardToAdd = new Card(Rank.of(3), Suit.CLUBS);
-			holeCards.add(cardToAdd);
-		}
+	public HoleCards(Deck deck, int handSize, boolean isReal) {
+		holeCards.add(new Card(Rank.of(6), Suit.CLUBS));
+		holeCards.add(new Card(Rank.of(6), Suit.DIAMONDS));
+		holeCards.add(new Card(Rank.of(6), Suit.HEARTS));
+		holeCards.add(new Card(Rank.of(6), Suit.SPADES));
+		holeCards.add(new Card(Rank.of(3), Suit.CLUBS));
+		
 	}
 
 	public String toString() {
