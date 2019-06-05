@@ -4,9 +4,7 @@ public class HoleCards {
 	ArrayList<Card> holeCards = new ArrayList<Card>();
 
 	public HoleCards(int handSize) {
-		for (int i = 0; i < handSize; i++) {
-			holeCards.add(Deck.random());
-		}
+		this(new Deck(), handSize);	
 	}
 
 	public HoleCards(Deck deck, int handSize) {

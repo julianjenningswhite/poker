@@ -2,7 +2,7 @@ import java.util.Collections;
 import java.util.Hashtable;
 
 public class BigO {
-	
+
 	public static void bestCombination(HoleCards myHand) {
 		Hashtable<Rank, Suit> handAndBoard = new Hashtable<Rank, Suit>();
 		for (int i = 0; i < myHand.hand.size(); i++) {
@@ -14,12 +14,16 @@ public class BigO {
 			if (Collections.frequency(handAndBoard.keySet(), rank) == 4)
 				System.out.print("Quads");
 		}
-		
+
 	}
-	
+
 	public static void main(String[] args) {
 		Deck testDeck = new Deck();
-		HoleCards myFakeTestHand = new HoleCards(5, false);
+		HoleCards myTestHand = new HoleCards(testDeck, 5);
+		System.out.println(testDeck);
+		System.out.println();
+		System.out.println(myTestHand);
+		HoleCards myFakeTestHand = new HoleCards(2, false);
 		System.out.println(myFakeTestHand);
 		BigO.bestCombination(myFakeTestHand);
 	}
@@ -41,7 +45,7 @@ public class BigO {
 		}
 		return pairCounter;
 	}
-	
+
 	public int isTriple(Hand myHand) {
 		int tripleCounter = 0;
 		int tripleRank = 0;
@@ -53,7 +57,7 @@ public class BigO {
 		}
 		return tripleCounter;
 	}
-	
+
 	public int isQuads(Hand myHand) {
 		int quadsCounter = 0;
 		int quadsRank = 0;
@@ -65,7 +69,7 @@ public class BigO {
 		}
 		return quadsCounter;
 	}
-	
+
 	public int isSuited(Hand myHand) {
 		int suitedPairsCounter = 0;
 		String pairSuit = "";
@@ -81,7 +85,7 @@ public class BigO {
 		}
 		return suitedPairsCounter;
 	}
-	
+
 	public int isTripleSuited(Hand myHand) {
 		int tripleSuitCounter = 0;
 		int tripleSuit = 0;
@@ -93,7 +97,7 @@ public class BigO {
 		}
 		return tripleSuitCounter;
 	}
-	
+
 	public int isFourSuited(Hand myHand) {
 		int fourSuitedCounter = 0;
 		int fourSuit = 0;
@@ -105,7 +109,7 @@ public class BigO {
 		}
 		return fourSuitedCounter;
 	}
-	
+
 	public int isFiveSuited(Hand myHand) {
 		int fiveSuitedCounter = 0;
 		int fiveSuit = 0;
