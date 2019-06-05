@@ -1,9 +1,22 @@
 import java.util.Collections;
 
 public class BigO {
+	
+	public static void main(String[] args) {
+		Deck testDeck = new Deck();
+		Hand myTestHand = new Hand(5);
+		testDeck.toPrint();
+		System.out.println();
+		myTestHand.toPrint();
+//		Hand myFakeTestHand = new Hand(2, false);
+//		myFakeTestHand.toPrint();
+	}
+}
+
+
+/*
+public class BigO {
 	public int isPair(Hand myHand) {
-		hi there!!!
-		Too tired to code
 		int pairCounter = 0;
 		int pairRank = 0;
 		int secondPairRank = 0;
@@ -95,3 +108,5 @@ public class BigO {
 		return fiveSuitedCounter;
 	}
 }
+
+*/

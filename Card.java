@@ -8,6 +8,10 @@ public class Card {
 	    this.rank = rank;
 	    this.suit = suit;
 	}
+	
+	public String toString() {
+		return "Rank: " + this.rank.getDisplayName() + " Suit: " + this.suit.getDisplayName();
+	}
 }
 
 /*

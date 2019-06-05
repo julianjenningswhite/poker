@@ -1,23 +1,22 @@
-import java.util.ArrayList;
-import java.util.Collections;
+ import java.util.ArrayList;
 
 public class Hand {
-	Card[] hand;
-	int handSize;
-	static ArrayList<Rank> handRankArray = new ArrayList<Rank>();
-	static ArrayList<Suit> handSuitArray = new ArrayList<Suit>();
-	public Hand() {
-		hand = new Card[handSize];
+	ArrayList<Card> hand = new ArrayList<Card>();
+	public Hand(int handSize) {
 		for (int i = 0; i < handSize; i++) {
-			this.hand[i] = Deck.random();
-			handRankArray.add(hand[i].rank);
-			handSuitArray.add(hand[i].suit);
+			Card cardToAdd = Deck.random();
+			hand.add(cardToAdd);
 		}
 	}
-	
-	
-	
-	
-	
-	
+	public Hand(int handSize, boolean isReal) {
+		for (int i = 0; i < handSize; i++) {
+			Card cardToAdd = new Card(Rank.of(3), Suit.CLUBS);
+			hand.add(cardToAdd);
+		}
+	}
+	public void toPrint() {
+		for (Card cardToPrint : hand) {
+			System.out.println(cardToPrint.toString());
+		}
+	}
 }

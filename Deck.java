@@ -21,6 +21,12 @@ public class Deck {
         deck.remove(index);
 	    return cardToReturn;
 	}
+	
+	public void toPrint() {
+		for (Card cardToPrint : deck) {
+			System.out.println(cardToPrint.toString());
+		}
+	}
 }
 
 
