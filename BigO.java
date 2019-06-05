@@ -4,18 +4,16 @@ public class BigO {
 	
 	public static void main(String[] args) {
 		Deck testDeck = new Deck();
-		Hand myTestHand = new Hand(5);
+		HoleCards myTestHand = new HoleCards(5);
 		System.out.println(testDeck);
 		System.out.println();
 		System.out.println(myTestHand);
-		Hand myFakeTestHand = new Hand(2, false);
+		HoleCards myFakeTestHand = new HoleCards(2, false);
 		System.out.println(myFakeTestHand);
 	}
 }
 
-
 /*
-public class BigO {
 	public int isPair(Hand myHand) {
 		int pairCounter = 0;
 		int pairRank = 0;
@@ -107,6 +105,4 @@ public class BigO {
 		}
 		return fiveSuitedCounter;
 	}
-}
-
 */
