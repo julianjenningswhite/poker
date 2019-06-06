@@ -1,8 +1,24 @@
+import java.util.Comparator;
 import java.util.Random;
 
 public class Card {
-	final Rank rank;
-	final Suit suit;
+	public final Rank rank;
+	public final Suit suit;
+	public static final Comparator<Card> suitComparator;
+	public static final Comparator<Card> rankComparator;
+	
+    static {
+    	suitComparator = new Comparator<Card>() {
+            public int compare(Card card1, Card card2) {
+                return card1.suit.hashCode() - card2.suit.hashCode();
+            }
+        };
+        rankComparator = new Comparator<Card>() {
+        	public int compare(Card card1, Card card2) {
+        		return card1.rank.getValue() - card2.rank.getValue();
+        	}
+        };
+    }
 
 	public Card(Rank rank, Suit suit) {
 	    this.rank = rank;
