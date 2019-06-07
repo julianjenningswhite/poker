@@ -23,4 +23,10 @@ public enum Rank {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No card with value " + value + " exists."));
     }
+    
+    public double getStrength() {
+    	if (this.value == 1)
+    		return 0.14;
+    	return (value / 100);
+    }
 }
