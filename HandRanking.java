@@ -21,35 +21,18 @@ public class HandRanking {
 		for (Card card : board.board) {
 			cards.add(card);
 		}
-		
-		int[] ranks = new int[cards.size()];
 		cards.sort(Card.rankComparator);
-		for (int i = 0; i < cards.size(); i++) {
-			ranks[i] = cards.get(i).rank.getValue();
-		}
+		cards.sort(Card.suitComparator);
 		
-		HashMap<Suit, Integer> suitsMap = new HashMap<Suit, Integer>();
 		HashMap<Rank, Integer> ranksMap = new HashMap<Rank, Integer>();
 		for (Card card : cards) {
-			if (suitsMap.containsKey(card.suit)) {
-				suitsMap.replace(card.suit, suitsMap.get(card.suit) + 1);
-			} else {
-				suitsMap.put(card.suit, 1);
-			}
-			
 			if (ranksMap.containsKey(card.rank)) {
 				ranksMap.replace(card.rank, ranksMap.get(card.rank)+ 1);
 			} else {
 				ranksMap.put(card.rank, 1);
 			}
 		}
-		System.out.println(suitsMap);
-		System.out.println(ranksMap);
  		
-		
-		
-		cards.sort(Card.rankComparator);
-		
 		HashMap<Integer, LinkedList<Rank>> frequencyToRanks = new HashMap<Integer, LinkedList<Rank>>();
 		for(Map.Entry<Rank, Integer> entry : ranksMap.entrySet()){
 			if (frequencyToRanks.containsKey(entry.getValue())) {
@@ -61,20 +44,16 @@ public class HandRanking {
 			}
 		}
 		
-		if (frequencyToRanks.containsKey(4)) {
+		if (cards.get(0).suit == cards.get(4).suit || cards.get(1).suit == cards.get(5).suit || cards.get(2).suit == cards.get(6).suit) {
+			System.out.println("STRAIGHT FLUSH");
+			return 9;
+		} else if (frequencyToRanks.containsKey(4)) {
 			System.out.println("FOUR OF A KIND");
 			return 8;
-		}
-
-		
-		if (frequencyToRanks.containsKey(3) && frequencyToRanks.containsKey(2)) {
+		} else if (frequencyToRanks.containsKey(3) && frequencyToRanks.containsKey(2)) {
 			System.out.println("FULL HOUSE");
 			return 7;
-		}
-		
-		cards.sort(Card.rankComparator);
-		cards.sort(Card.suitComparator);
-		if (cards.get(0).suit == cards.get(4).suit || cards.get(1).suit == cards.get(5).suit || cards.get(2).suit == cards.get(6).suit) {
+		} if (cards.get(0).suit == cards.get(4).suit || cards.get(1).suit == cards.get(5).suit || cards.get(2).suit == cards.get(6).suit) {
 			System.out.println("FLUSH");
 			return 6;
 		} else if (frequencyToRanks.containsKey(3)) {

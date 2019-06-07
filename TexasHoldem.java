@@ -23,6 +23,6 @@ public class TexasHoldem {
 		System.out.println(holeCards2);
 		System.out.println(board2);
 		
-		System.out.println(HandRanking.rank(holeCards2, board2, GameType.TEXAS_HOLDELM)); // expect "4 of a kind 8s"
+		System.out.println(HandRanking.rank(holeCards2, board2, GameType.TEXAS_HOLDELM));
 	}
 }
