@@ -13,10 +13,10 @@ public class TexasHoldem {
 		System.out.println("Test 2");
 		HoleCards holeCards2 = new HoleCards(0);
 		holeCards2.add(new Card(Rank.EIGHT, Suit.SPADES));
-		holeCards2.add(new Card(Rank.NINE, Suit.CLUBS));
+		holeCards2.add(new Card(Rank.EIGHT, Suit.CLUBS));
 		Board board2 = new Board(0);
-		board2.add(new Card(Rank.KING, Suit.CLUBS));
-		board2.add(new Card(Rank.EIGHT, Suit.DIAMONDS));
+		board2.add(new Card(Rank.EIGHT, Suit.CLUBS));
+		board2.add(new Card(Rank.SEVEN, Suit.DIAMONDS));
 		board2.add(new Card(Rank.SEVEN, Suit.DIAMONDS));
 		board2.add(new Card(Rank.FIVE, Suit.CLUBS));
 		board2.add(new Card(Rank.ACE, Suit.CLUBS));

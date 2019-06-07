@@ -49,13 +49,6 @@ public class HandRanking {
 		
 		
 		cards.sort(Card.rankComparator);
-		System.out.println(ranks[0] + " " + ranks[1] + " " + ranks[2] + " " + ranks[3] + " " + ranks[4] + " " + ranks[5] + " " + ranks[6]);
-		for (int offset = 0; offset <= 3; offset++) {
-			if (ranks[offset] == ranks[offset + 1] && ranks[offset + 1] == ranks[offset + 2] && ranks[offset + 2] == ranks[offset + 3]) {
-				System.out.println("FOUR OF A KIND");
-				return 8;
-			}
-		}
 		
 		HashMap<Integer, LinkedList<Rank>> frequencyToRanks = new HashMap<Integer, LinkedList<Rank>>();
 		for(Map.Entry<Rank, Integer> entry : ranksMap.entrySet()){
@@ -68,23 +61,16 @@ public class HandRanking {
 			}
 		}
 		
-		System.out.println("frequencyToRanks");
-		System.out.println(frequencyToRanks);
+		if (frequencyToRanks.containsKey(4)) {
+			System.out.println("FOUR OF A KIND");
+			return 8;
+		}
+
 		
 		if (frequencyToRanks.containsKey(3) && frequencyToRanks.containsKey(2)) {
 			System.out.println("FULL HOUSE");
 			return 7;
 		}
-		
-		/*for (int offset = 0; offset <= 2; offset++) {
-			if (ranks[offset] == ranks[offset + 1] && ranks[offset + 1] == ranks[offset + 2] && ranks[offset + 2] == ranks[offset + 3]
-				&& ranks[offset + 4] == ranks[offset + 5]) {
-					System.out.println("FULL HOUSE");
-					return 7;
-			}
-			if (ranks[offset] == ranks[offset + 1] && ranks[offset + 1] == ranks[offset + 2] && 
-					ranks[offset + 3] == )
-		}*/
 		
 		cards.sort(Card.rankComparator);
 		cards.sort(Card.suitComparator);
