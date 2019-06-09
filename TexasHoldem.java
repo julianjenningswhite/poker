@@ -4,14 +4,14 @@ public class TexasHoldem {
 		
 		System.out.println("Test 1");
 		Deck deck1 = new Deck();
-		HoleCards holeCards1 = new HoleCards(deck1, 2);
+		Hand hand1 = new Hand(deck1, 2);
 		Board board1 = new Board(deck1);
-		System.out.println(holeCards1);
+		System.out.println(hand1);
 		System.out.println(board1);
 		System.out.println(deck1);
 		
 		System.out.println("Test 2");
-		HoleCards holeCards2 = new HoleCards(0);
+		Hand holeCards2 = new Hand(0);
 		holeCards2.add(new Card(Rank.NINE, Suit.SPADES));
 		holeCards2.add(new Card(Rank.EIGHT, Suit.CLUBS));
 		Board board2 = new Board(0);

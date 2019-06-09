@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class HandRanking {
-	public static int rank(HoleCards holeCards, Board board, GameType gameType) {
+	public static int rank(Hand hand, Board board, GameType gameType) {
 		if (gameType == GameType.TEXAS_HOLDELM) {
-			return rankTexasHoldem(holeCards, board);
+			return rankTexasHoldem(hand, board);
 		}
 		return 0;
 	}
@@ -131,9 +131,9 @@ public class HandRanking {
 	}
 	
 	
-	public static int rankTexasHoldem(HoleCards holeCards, Board board) {
+	public static int rankTexasHoldem(Hand hand, Board board) {
 		ArrayList<Card> cards = new ArrayList<Card>();
-		for (Card card : holeCards.holeCards) {
+		for (Card card : hand.hand) {
 			cards.add(card);
 		}
 		for (Card card : board.board) {
