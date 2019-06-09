@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -8,19 +9,20 @@ public class HandRanking {
 		if (gameType == GameType.TEXAS_HOLDELM) {
 			return rankTexasHoldem(holeCards, board);
 		}
-		
 		return 0;
 	}
 	
-	public static int rankFiveCards(ArrayList<Card> cards) { // TODO handle Ace on both sides for straights
+	public static double rankFiveCards(ArrayList<Card> cards) {
+		
 		HashMap<Rank, Integer> ranksMap = new HashMap<Rank, Integer>();
 		for (Card card : cards) {
 			if (ranksMap.containsKey(card.rank)) {
 				ranksMap.replace(card.rank, ranksMap.get(card.rank)+ 1);
-			} else {
+			} else
 				ranksMap.put(card.rank, 1);
-			}
 		}
+		
+		
 		
 		HashMap<Integer, LinkedList<Rank>> frequencyToRanks = new HashMap<Integer, LinkedList<Rank>>();
 		for(Map.Entry<Rank, Integer> entry : ranksMap.entrySet()){
@@ -35,53 +37,99 @@ public class HandRanking {
 		
 		cards.sort(Card.rankComparator);
 		cards.sort(Card.suitComparator);
-		if (cards.get(0).suit == cards.get(4).suit) {
-			if (cards.get(0).rank.value + 1 == cards.get(1).rank.value && cards.get(1).rank.value + 1 == cards.get(2).rank.value && cards.get(2).rank.value + 1 == cards.get(3).rank.value && cards.get(3).rank.value + 1 == cards.get(4).rank.value) {
-				System.out.println("STRAIGHT FLUSH");
-				return 9;
+
+		
+		
+		// Royal and Straight Flush
+		if (cards.get(0).suit == cards.get(4).suit) { 
+			cards.sort(Card.rankComparator);
+			if (cards.get(0).rank.value == 1 && cards.get(1).rank.value == 10 && cards.get(2).rank.value == 11
+					&& cards.get(3).rank.value == 12 && cards.get(4).rank.value == 13)
+				return 9 + (14 / 100.0);
+			if (cards.get(0).rank.value + 1 == cards.get(1).rank.value && cards.get(1).rank.value + 1 == cards.get(2).rank.value &&
+					cards.get(2).rank.value + 1 == cards.get(3).rank.value && cards.get(3).rank.value + 1 == cards.get(4).rank.value) {
+				cards.sort(Card.rankComparator.reversed());
+				return 9 + (cards.get(4).rank.value / 100.00);
 			}
 		}
 		
+		// Four of a Kind
 		if (frequencyToRanks.containsKey(4)) {
-			System.out.println("FOUR OF A KIND");
-			return 8;
+			return 8 + (frequencyToRanks.get(4).getFirst().getStrength() / 100.0);
 		}
 		
+		// Full House
 		if (frequencyToRanks.containsKey(3) && frequencyToRanks.containsKey(2)) {
-			System.out.println("FULL HOUSE");
-			return 7;
+			return 7 + (frequencyToRanks.get(3).getFirst().getStrength() / 100.0) + (frequencyToRanks.get(2).getFirst().getStrength() / 10000.0);
 		}
 		
+		// Flush
 		if (cards.get(0).suit == cards.get(4).suit) {
-			System.out.println("FLUSH");
-			return 6;
+			cards.sort(Card.rankComparator);
+			if (cards.get(0).rank.value == 1) {
+				return 6 + (14 / 100.0) + (cards.get(4).rank.value / 10000.00) + (cards.get(3).rank.value / 1000000.00)
+						 + (cards.get(2).rank.value / 100000000.00) + (cards.get(1).rank.value / 10000000000.00);
+			}
+			return 6 + (cards.get(4).rank.value / 100.00) + (cards.get(3).rank.value / 10000.00) + (cards.get(2).rank.value / 1000000.00)
+			 + (cards.get(1).rank.value / 100000000.00) + (cards.get(0).rank.value / 10000000000.00);
+		}
+		
+		// Straight
+		
+		cards.sort(Card.rankComparator);
+		if (cards.get(0).rank.value + 1 == cards.get(1).rank.value && cards.get(1).rank.value + 1 == cards.get(2).rank.value
+			&& cards.get(2).rank.value + 1 == cards.get(3).rank.value && cards.get(3).rank.value + 1 == cards.get(4).rank.value) {
+		return 5 + (cards.get(4).rank.value / 100.00);
+		}
+		
+		// Royal Straight
+		 if (cards.get(0).rank.value == 1 && cards.get(1).rank.value == 10 && cards.get(2).rank.value == 11 
+					&& cards.get(3).rank.value == 12 && cards.get(4).rank.value == 13) {
+			return 5 + (14 / 100.0);
+		}
+		
+		// Three of a Kind
+		 if (frequencyToRanks.containsKey(3)) {
+			if (frequencyToRanks.get(1).getFirst().getStrength() > frequencyToRanks.get(1).getLast().getStrength()) {
+				return 4 + (frequencyToRanks.get(3).getFirst().getStrength() / 100.0) + (frequencyToRanks.get(3).getFirst().getStrength() / 10000.0)
+						 + (frequencyToRanks.get(3).getFirst().getStrength() / 1000000.0) + (frequencyToRanks.get(1).getFirst().getStrength() / 100000000.0)
+						 + (frequencyToRanks.get(1).getLast().getStrength() / 10000000000.0);
+			}
+			return 4 + (frequencyToRanks.get(3).getFirst().getStrength() / 100.0) + (frequencyToRanks.get(3).getFirst().getStrength() / 10000.0)
+					 + (frequencyToRanks.get(3).getFirst().getStrength() / 1000000.0) + (frequencyToRanks.get(1).getLast().getStrength() / 100000000.0)
+					 + (frequencyToRanks.get(1).getFirst().getStrength() / 10000000000.0);
+		}
+		
+		// Two Pair
+		 if (frequencyToRanks.containsKey(2) && frequencyToRanks.get(2).size() > 1) {
+			if (frequencyToRanks.get(2).get(0).getStrength() > frequencyToRanks.get(2).get(1).getStrength())
+				return 3 + (frequencyToRanks.get(2).get(0).getStrength() / 100.0) + (frequencyToRanks.get(2).get(0).getStrength() / 10000.0)
+						 + (frequencyToRanks.get(2).get(1).getStrength() / 1000000.0) + (frequencyToRanks.get(2).get(1).getStrength() / 100000000.0)
+						 + (frequencyToRanks.get(1).getFirst().getStrength() / 10000000000.0);
+			return 3 + (frequencyToRanks.get(2).get(1).getStrength() / 100.0) + (frequencyToRanks.get(2).get(1).getStrength() / 10000.0)
+					 + (frequencyToRanks.get(2).get(0).getStrength() / 1000000.0) + (frequencyToRanks.get(2).get(0).getStrength() / 100000000.0)
+					 + (frequencyToRanks.get(1).getFirst().getStrength() / 10000000000.0);
+		} 
+		
+		// Pair
+		 if (frequencyToRanks.containsKey(2)) {
+			Collections.sort(frequencyToRanks.get(1));
+			if (frequencyToRanks.get(1).getFirst().getValue() == 1)
+				return 2 + (frequencyToRanks.get(2).getFirst().getStrength() / 100.0) + (frequencyToRanks.get(2).getFirst().getStrength() / 10000.0)
+						 + (14 / 1000000.0) + (frequencyToRanks.get(1).get(2).getStrength() / 100000000.0)
+						 + (frequencyToRanks.get(1).get(1).getStrength() / 10000000000.0);
+			return 2 + (frequencyToRanks.get(2).getFirst().getStrength() / 100.0) + (frequencyToRanks.get(2).getFirst().getStrength() / 10000.0)
+					 + (frequencyToRanks.get(1).get(2).getStrength() / 1000000.0) + (frequencyToRanks.get(1).get(1).getStrength() / 100000000.0)
+					 + (frequencyToRanks.get(1).get(0).getStrength() / 10000000000.0);
 		}
 		
 		cards.sort(Card.rankComparator);
-		System.out.println(cards);
-		if (cards.get(0).rank.value + 1 == cards.get(1).rank.value && cards.get(1).rank.value + 1 == cards.get(2).rank.value && cards.get(2).rank.value + 1 == cards.get(3).rank.value && cards.get(3).rank.value + 1 == cards.get(4).rank.value) {
-			System.out.println("STRAIGHT");
-			return 5;
-		}
 		
-		if (frequencyToRanks.containsKey(3)) {
-			System.out.println("THREE OF A KIND");
-			return 4;
-		}
-		
-		if (frequencyToRanks.containsKey(2) && frequencyToRanks.get(2).size() > 1) {
-			System.out.println("TWO PAIR");
-			return 3;
-		} 
-		
-		if (frequencyToRanks.containsKey(2)) {
-			System.out.println("PAIR");
-			return 2;
-		}
-		
-		System.out.println("HIGH CARD");
-		return 1;
+		// High Card
+		return 1 + (cards.get(4).rank.value / 100.00) + (cards.get(3).rank.value / 10000.00) + (cards.get(2).rank.value / 1000000.00)
+				 + (cards.get(1).rank.value / 100000000.00) + (cards.get(0).rank.value / 10000000000.00);
 	}
+	
 	
 	public static int rankTexasHoldem(HoleCards holeCards, Board board) {
 		ArrayList<Card> cards = new ArrayList<Card>();

@@ -1,138 +1,84 @@
 import java.util.ArrayList;
-import java.util.Collections;
-
+import java.util.HashMap;
 public class BigO {
-	// iterates through all hand combinations
-	public static double bestHand(Hand hand, Board board) {
+	
+	public static double bestHighHand(Hand hand, Board board) {
 		double ranking = 0;
+		ArrayList<Card> playCards = new ArrayList<Card>();
 		for (int i = 0; i < hand.hand.size(); i++) {
 			for (int j = i + 1; j < hand.hand.size(); j++) {
-				Hand playHand = new Hand(2);
-				playHand.add(hand.hand.get(i));
-				playHand.add(hand.hand.get(j)); 
-				if (ranking > evaluate(playHand, board))
-					ranking = evaluate(playHand, board); // computes numerical value elsewhere, here just get the highest numerical value
-			}
-		}
-		return ranking;
-	}
-	
-	// evaluates one hand combination with the board
-	public static double evaluate(Hand hand, Board board) {
-		double ranking = 0;
-		if (straightFlush(hand, board) != 0) {
-			ranking = straightFlush(hand, board);
-		} else if (quads(hand, board) != 0) {
-			ranking = quads(hand, board);
-		} else if (fullHouse(hand, board) != 0) {
-			ranking = fullHouse(hand, board);
-		} else if (flush(hand, board) != 0) {
-			ranking = flush(hand, board);
-		} else if (staight(hand, board) != 0) {
-			ranking = staight(hand, board);
-		} else if (threeOfAKind(hand, board) != 0) {
-			ranking = threeOfAKind(hand, board);
-		} else if (twoPair(hand, board) != 0) {
-			ranking = twoPair(hand, board);
-		} else if (pair(hand, board) != 0) {
-			ranking = pair(hand, board);
-		} else if (highCard(hand, board) != 0) {
-			ranking = highCard(hand, board);
-		}
-		return ranking;
-	}
-	
-	public static double straightFlush(Hand hand, Board board) {
-		double straightFlush = 0;
-		
-		return straightFlush;
-	}
-	
-	public static double quads(Hand hand, Board board) {
-		double quads = 0;
-		
-		return quads;
-	}
-	
-	public static double fullHouse(Hand hand, Board board) {
-		double fullHouse = 0;
-		
-		return fullHouse;
-	}
-	
-	static Suit flushSuit;
-	static ArrayList<Card> flushCards;
-	
-	public static double flush(Hand hand, Board board) {
-		double flush = 0;
-		for (Suit suit : Suit.values()) {
-			if (hand.getSameSuit(suit).size() >= 2 && board.getSameSuit(suit).size() >= 3) {
-				
-				flushSuit = suit;
-				flushCards.addAll(hand.getSameSuit(suit).sort(rankComparator));
-				flushCards.addAll(board.getSameSuit(suit));
-				flushCards.sort(Card.rankComparator);
-				double power = 1;
-				for (int i = flushCards.size()-1; i > flushCards.size()-6; i--) {
-					flush = 6 + (flushCards.get(i).rank.getStrength()) * Math.pow(10, power);
-					power = power - 2;
+				for (int k = 0; k < board.board.size(); k++) {
+					for (int m = k + 1; m < board.board.size(); m++) {
+						for (int n = m + 1; n < board.board.size(); n++) {
+							playCards.removeAll(playCards);
+							playCards.add(hand.hand.get(i));
+							playCards.add(hand.hand.get(j));
+							playCards.add(board.board.get(k));
+							playCards.add(board.board.get(m));
+							playCards.add(board.board.get(n)); 
+							double thisCombinationRank = HandRanking.rankFiveCards(playCards);
+							if (ranking < thisCombinationRank)
+								ranking = thisCombinationRank;
+						}
+					}
 				}
 			}
 		}
-		return flush;
+		return ranking;
 	}
 	
-	public static double staight(Hand hand, Board board) {
-		double staight = 0;
-		
-		return staight;
+	public static int bestLowHand(Hand Hand, Board board) {
+		int ranking = 0;
+		return ranking;
 	}
 	
-	public static double threeOfAKind(Hand hand, Board board) {
-		double threeOfAKind = 0;
-		
-		return threeOfAKind;
+	public static double highWinner(Hand hand1, Hand hand2, Hand hand3, Hand hand4, Hand hand5, Hand hand6, Hand hand7, Hand hand8, Board board) {
+		double[] highScores = new double[9];
+		highScores[0] = bestHighHand(hand1, board);
+		highScores[1] = bestHighHand(hand2, board);
+		highScores[2] = bestHighHand(hand3, board);
+		highScores[3] = bestHighHand(hand4, board);
+		highScores[4] = bestHighHand(hand5, board);
+		highScores[5] = bestHighHand(hand6, board);
+		highScores[6] = bestHighHand(hand7, board);
+		highScores[7] = bestHighHand(hand8, board);
+		double max = 0;
+		int winningHand = 0;
+		for (int i = 0; i < 8; i++) {
+//			System.out.println("Hand no. " + (i + 1) + " has a score of: " + highScores[i]);
+			if (max < highScores[i]) {
+				max = highScores[i];
+				winningHand = i + 1;
+			}
+		}
+//		return "The high winner is hand no. " + winningHand + ", with a score of: " + max;
+		return max;
 	}
 	
-	public static double twoPair(Hand hand, Board board) {
-		double twoPair = 0;
-		
-		return twoPair;
+	public static int analysis() {
+		Deck deck = new Deck();
+		Hand hand1 = new Hand(deck,5);
+		Hand hand2 = new Hand(deck,5);
+		Hand hand3 = new Hand(deck,5);
+		Hand hand4 = new Hand(deck,5);
+		Hand hand5 = new Hand(deck,5);
+		Hand hand6 = new Hand(deck,5);
+		Hand hand7 = new Hand(deck,5);
+		Hand hand8 = new Hand(deck,5);
+		Board board = new Board(deck);
+		return (int) highWinner(hand1, hand2, hand3, hand4, hand5, hand6, hand7, hand8, board);
 	}
-	
-	public static double pair(Hand hand, Board board) {
-		double pair = 0;
-		
-		return pair;
-	}
-	
-	public static double highCard(Hand hand, Board board) {
-		double highCard = 0;
-		
-		return highCard;
-	}
-	
-	
 	
 	public static void main(String[] args) {
-		Hand myFakeHand = new Hand(0);
-		myFakeHand.add(new Card(Rank.of(6), Suit.HEARTS));
-		myFakeHand.add(new Card(Rank.of(5), Suit.HEARTS));
-		myFakeHand.add(new Card(Rank.of(10), Suit.DIAMONDS));
-		myFakeHand.add(new Card(Rank.of(11), Suit.HEARTS));
-		myFakeHand.add(new Card(Rank.of(12), Suit.SPADES));
-		Board myFakeBoard = new Board(0);
-		myFakeBoard.add(new Card(Rank.of(7), Suit.HEARTS));
-		myFakeBoard.add(new Card(Rank.of(8), Suit.HEARTS));
-		myFakeBoard.add(new Card(Rank.of(9), Suit.HEARTS));
-		myFakeBoard.add(new Card(Rank.of(13), Suit.HEARTS));
-		myFakeBoard.add(new Card(Rank.of(10), Suit.HEARTS));
-		System.out.print(myFakeHand.hand);
-		myFakeHand.hand.sort(Card.rankComparator);
-		System.out.println();
-		System.out.print(myFakeHand.hand);
-		System.out.println();
-		System.out.print(flush(myFakeHand, myFakeBoard));
-//		System.out.print(HandRankingsBigO.straightFlush(myFakeHand, myFakeBoard));
+		HashMap<Integer, Integer> frequency = new HashMap<Integer, Integer>();
+		for (int i = 0; i < 100; i++) {
+			int result = analysis();
+			if (frequency.containsKey(result))
+				frequency.put(result, frequency.get(result) + 1);
+			else
+				frequency.put(result, 1);
+		}
+		System.out.println(frequency);
 	}
 }
+
