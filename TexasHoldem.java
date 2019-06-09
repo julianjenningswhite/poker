@@ -1,6 +1,18 @@
 public class TexasHoldem {
 	public static void main (String[] args) {
-		System.out.println("Testing Texas Holdem");
+		randomizedTests();
+		mockTests();
+		
+	}
+	
+	public static void randomizedTests() {
+		System.out.println("Testing Texas Holdem using randomized tests");
+		
+		
+	}
+	
+	public static void mockTests() {
+		System.out.println("Testing Texas Holdem using mock tests");
 		
 		System.out.println("Test 1");
 		Deck deck1 = new Deck();
@@ -32,6 +44,6 @@ public class TexasHoldem {
 		board3.add(new Card(Rank.QUEEN, Suit.CLUBS));
 		board3.add(new Card(Rank.KING, Suit.CLUBS));
 		board3.add(new Card(Rank.JACK, Suit.CLUBS));
-		System.out.println(HandRanking.rankFiveCards(board3.board));
-	}
+		System.out.println(HandRanking.rankFiveCardsHigh(board3.board));
+	}	
 }

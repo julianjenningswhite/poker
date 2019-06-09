@@ -5,15 +5,42 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class HandRanking {
+	public static int NO_LOW = 99999;
+	public static int WORST_LOW = 87654;
+	
 	public static int rank(Hand hand, Board board, GameType gameType) {
 		if (gameType == GameType.TEXAS_HOLDELM) {
 			return rankTexasHoldem(hand, board);
 		}
+		
 		return 0;
 	}
 	
-	public static double rankFiveCards(ArrayList<Card> cards) {
+	public static int rankFiveCardsLow(ArrayList<Card> cards) {
+		int lowHandRank = 0;
 		
+		cards.sort(Card.rankComparator);
+		
+		int positionMultiplier = 1;
+		int previousCardRank = 0;
+		for (Card card : cards) {
+			int cardRank = card.rank.value;
+			if (previousCardRank == cardRank) {
+				return NO_LOW;
+			}
+			lowHandRank += card.rank.value * positionMultiplier;
+			positionMultiplier *= 10;
+			previousCardRank = cardRank;
+		}
+		
+		if (lowHandRank > WORST_LOW) {
+			lowHandRank = NO_LOW;
+		}
+		
+		return lowHandRank;
+	}
+	
+	public static double rankFiveCardsHigh(ArrayList<Card> cards) {
 		HashMap<Rank, Integer> ranksMap = new HashMap<Rank, Integer>();
 		for (Card card : cards) {
 			if (ranksMap.containsKey(card.rank)) {
@@ -37,8 +64,6 @@ public class HandRanking {
 		
 		cards.sort(Card.rankComparator);
 		cards.sort(Card.suitComparator);
-
-		
 		
 		// Royal and Straight Flush
 		if (cards.get(0).suit == cards.get(4).suit) { 
